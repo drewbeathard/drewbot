@@ -192,3 +192,8 @@ target_link_libraries(ros_pololu_servo_node
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+add_executable(talker src/talker.cpp)
+target_link_libraries(talker ${catkin_LIBRARIES})
+add_dependencies(talker ros_pololu_servo_generate_messages_cpp)
+
