@@ -3,10 +3,10 @@
 #include <sensor_msgs/Joy.h>
 
 
-class TeleopTurtle
+class TeleopCar
 {
 public:
-  TeleopTurtle();
+  TeleopCar();
 
 private:
   void joyCallback(const sensor_msgs::Joy::ConstPtr& joy);
@@ -21,7 +21,7 @@ private:
 };
 
 
-TeleopTurtle::TeleopTurtle():
+TeleopCar::TeleopCar():
   linear_(1),
   angular_(2)
 {
@@ -35,11 +35,11 @@ TeleopTurtle::TeleopTurtle():
   vel_pub_ = nh_.advertise<geometry_msgs::Twist>("turtle1/cmd_vel", 1);
 
 
-  joy_sub_ = nh_.subscribe<sensor_msgs::Joy>("joy", 10, &TeleopTurtle::joyCallback, this);
+  joy_sub_ = nh_.subscribe<sensor_msgs::Joy>("joy", 10, &TeleopCar::joyCallback, this);
 
 }
 
-void TeleopTurtle::joyCallback(const sensor_msgs::Joy::ConstPtr& joy)
+void TeleopCar::joyCallback(const sensor_msgs::Joy::ConstPtr& joy)
 {
   geometry_msgs::Twist twist;
   twist.angular.z = a_scale_*joy->axes[angular_];
@@ -50,8 +50,8 @@ void TeleopTurtle::joyCallback(const sensor_msgs::Joy::ConstPtr& joy)
 
 int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "teleop_turtle");
-  TeleopTurtle teleop_turtle;
+  ros::init(argc, argv, "teleop_car");
+  TeleopCar teleop_car;
 
   ros::spin();
 }

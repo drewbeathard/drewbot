@@ -6,6 +6,7 @@ project(ros_pololu_servo)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
+  joy
   rospy
   std_msgs
   message_generation
@@ -197,3 +198,6 @@ add_executable(talker src/talker.cpp)
 target_link_libraries(talker ${catkin_LIBRARIES})
 add_dependencies(talker ros_pololu_servo_generate_messages_cpp)
 
+add_executable(joystick_node src/joystick_node.cpp)
+target_link_libraries(joystick_node ${catkin_LIBRARIES})
+add_dependencies(joystick_node ros_pololu_servo_generate_messages_cpp)
