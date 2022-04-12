@@ -1,8 +1,7 @@
 #include <ros/ros.h>
 #include <geometry_msgs/Twist.h>
 #include <sensor_msgs/Joy.h>
-
-
+#include <ros_pololu_servo/HARECommand.h>
 class TeleopCar
 {
 public:
@@ -32,7 +31,7 @@ TeleopCar::TeleopCar():
   nh_.param("scale_linear", l_scale_, l_scale_);
 
 
-  vel_pub_ = nh_.advertise<geometry_msgs::Twist>("car/cmd_vel", 1);
+  vel_pub_ = nh_.advertise<ros_pololu_servo::HARECommand>("HARE_high_level_command", 1);
 
 
   joy_sub_ = nh_.subscribe<sensor_msgs::Joy>("joy", 10, &TeleopCar::joyCallback, this);
@@ -41,10 +40,14 @@ TeleopCar::TeleopCar():
 
 void TeleopCar::joyCallback(const sensor_msgs::Joy::ConstPtr& joy)
 {
-  geometry_msgs::Twist twist;
-  twist.angular.z = a_scale_*joy->axes[angular_];
-  twist.linear.x = l_scale_*joy->axes[linear_];
-  vel_pub_.publish(twist);
+  ros_pololu_servo::HARECommand harecommand;
+  harecommand.steering_angle = a_scale_*joy->axes[0];
+  harecommand.throttle_cmd = 0;
+  harecommand.throttle_mode = 0;
+
+  // twist.angular.z = a_scale_*joy->axes[angular_];
+  // twist.linear.x = l_scale_*joy->axes[linear_];
+  vel_pub_.publish(harecommand);
 }
 
 

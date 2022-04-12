@@ -21,8 +21,8 @@
     <!-- joy to HARE conversion node -->  
     <param name="axis_linear" value="1" type="int"/>
     <param name="axis_angular" value="0" type="int"/>
-    <param name="scale_linear" value="4000" type="double"/>
-    <param name="scale_angular" value="4000" type="double"/>
+    <param name="scale_linear" value="1" type="double"/>
+    <param name="scale_angular" value="1" type="double"/>
     <node pkg="ros_pololu_servo" type="joystick_node" name="joystick2HARE"/>
 
 
