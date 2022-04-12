@@ -32,7 +32,7 @@ TeleopCar::TeleopCar():
   nh_.param("scale_linear", l_scale_, l_scale_);
 
 
-  vel_pub_ = nh_.advertise<geometry_msgs::Twist>("turtle1/cmd_vel", 1);
+  vel_pub_ = nh_.advertise<geometry_msgs::Twist>("car/cmd_vel", 1);
 
 
   joy_sub_ = nh_.subscribe<sensor_msgs::Joy>("joy", 10, &TeleopCar::joyCallback, this);

@@ -8,7 +8,22 @@
         <param name="daisy_chain" value="false" />
     </node>
 
+    <!-- HARE control node -->
     <node pkg="ros_pololu_servo" type="HARE_command.py" name="HARE_command" />
-    <!-- <node pkg="ros_pololu_servo" type="HARE_keyboard_control.py" name="HARE_command" /> -->
+
+    <!-- joy node -->
+    <node respawn="true" pkg="joy"
+            type="joy_node" name="joy_node" >
+        <param name="dev" type="string" value="/dev/input/js0" />
+        <param name="deadzone" value="0.12" />
+    </node>
+    
+    <!-- joy to HARE conversion node -->  
+    <param name="axis_linear" value="1" type="int"/>
+    <param name="axis_angular" value="0" type="int"/>
+    <param name="scale_linear" value="4000" type="double"/>
+    <param name="scale_angular" value="4000" type="double"/>
+    <node pkg="ros_pololu_servo" type="joystick_node" name="joystick2HARE"/>
+
 
 </launch>
