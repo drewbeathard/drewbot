@@ -46,7 +46,8 @@ void TeleopCar::joyCallback(const sensor_msgs::Joy::ConstPtr& joy)
 {
   ros_pololu_servo::HARECommand harecommand;
   harecommand.steering_angle = a_scale_*joy->axes[0];
-  harecommand.throttle_cmd = (-.5 * joy->axes[5]) + .5;
+  // harecommand.throttle_cmd = (.5 * joy->axes[2]) - (.5 * joy->axes[5]);
+  harecommand.throttle_cmd = (.5*joy->axes[5])+((-.5 * joy->axes[2]));
   harecommand.throttle_mode = 0;
 
   // twist.angular.z = a_scale_*joy->axes[angular_];

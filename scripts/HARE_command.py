@@ -24,10 +24,11 @@ def cmd_cb( msg ):
     steering_cmd_msg.position = msg.steering_angle
 
     # Limit the incoming throttle command
-    if msg.throttle_cmd > 1:
-        msg.throttle_cmd = 1
-    elif msg.throttle_cmd < 0:
-        msg.throttle_cmd = 0.0
+    # max_throttle = 1000
+    # if msg.throttle_cmd > max_throttle:
+    #     msg.throttle_cmd = max_throttle
+    # elif msg.throttle_cmd < -max_throttle:
+    #     msg.throttle_cmd = -max_throttle
 
     # Handle throttle mode
     # if msg.throttle_mode == 0:
@@ -36,7 +37,7 @@ def cmd_cb( msg ):
     #     motor_cmd_msg.position = -1*msg.throttle_cmd
     # else:
     #     motor_cmd_msg.position = msg.throttle_cmd
-    motor_cmd_msg.position = msg.throttle_cmd
+    motor_cmd_msg.position = -1 * msg.throttle_cmd
 
 
 def msg_publisher():
