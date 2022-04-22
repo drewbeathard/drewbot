@@ -41,7 +41,7 @@ int main(int argc,char**argv)
     }
     else
     {
-        ROS_INFO("Successfully initialized ros_polou_controller_node, ya boii.");
+        ROS_INFO("Successfully initialized ros_polou_controller_node!!!");
     }
 
     ros::Rate rate(controller.get_rate_hz());

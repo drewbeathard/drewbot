@@ -1,3 +1,7 @@
+// JOYSTICK -> HARE pub sub
+
+// subscribes to /joy topic
+// publishes to HARE_high_level_command topic
 #include <ros/ros.h>
 #include <geometry_msgs/Twist.h>
 #include <sensor_msgs/Joy.h>
@@ -25,8 +29,8 @@ TeleopCar::TeleopCar():
   angular_(2)
 {
 
-  nh_.param("axis_linear", linear_, linear_);
   nh_.param("axis_angular", angular_, angular_);
+  nh_.param("axis_linear", linear_, linear_);
   nh_.param("scale_angular", a_scale_, a_scale_);
   nh_.param("scale_linear", l_scale_, l_scale_);
 
@@ -42,7 +46,7 @@ void TeleopCar::joyCallback(const sensor_msgs::Joy::ConstPtr& joy)
 {
   ros_pololu_servo::HARECommand harecommand;
   harecommand.steering_angle = a_scale_*joy->axes[0];
-  harecommand.throttle_cmd = 0;
+  harecommand.throttle_cmd = (-.5 * joy->axes[5]) + .5;
   harecommand.throttle_mode = 0;
 
   // twist.angular.z = a_scale_*joy->axes[angular_];

@@ -1,4 +1,5 @@
 <launch>
+    <!-- pololu controller, find serial port-->
     <node pkg="ros_pololu_servo" type="ros_pololu_servo_node" name="pololu_controller_node" output="screen">
         <param name="pololu_motors_yaml" value="$(find ros_pololu_servo)/launch/hare_ctrl_cfg.yaml" />
         <!-- <param name="port_name" value="/dev/pololu" />/dev/serial/by-id -->
@@ -8,15 +9,13 @@
         <param name="daisy_chain" value="false" />
     </node>
 
-    <!-- HARE control node -->
-    <node pkg="ros_pololu_servo" type="HARE_command.py" name="HARE_command" />
-
-    <!-- joy node -->
+    <!-- joy node  -->
     <node respawn="true" pkg="joy"
             type="joy_node" name="joy_node" >
         <param name="dev" type="string" value="/dev/input/js0" />
         <param name="deadzone" value="0.12" />
     </node>
+
     
     <!-- joy to HARE conversion node -->  
     <param name="axis_linear" value="1" type="int"/>
@@ -24,6 +23,9 @@
     <param name="scale_linear" value="1" type="double"/>
     <param name="scale_angular" value="1" type="double"/>
     <node pkg="ros_pololu_servo" type="joystick_node" name="joystick2HARE"/>
+
+    <!-- HARE control node, takes HARECommand.msg, tells servo / motor what to do -->
+    <node pkg="ros_pololu_servo" type="HARE_command.py" name="HARE_command" />
 
 
 </launch>

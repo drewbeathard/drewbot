@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# Single HARECommand
+# Publishes single MotorCommand 
 import rospy
 from std_msgs.msg import String
 from geometry_msgs.msg import PoseStamped, Point, Twist
@@ -13,10 +15,11 @@ def cmd_cb( msg ):
     #globals steering_cmd_msg , motor_cmd_msg
 
     # Limit incoming message to steering limits
-    if msg.steering_angle > .78:
-        msg.steering_angle = .78
-    elif msg.steering_angle < -.78:
-        msg.steering_angle = -.78
+    max_angle = .78
+    if msg.steering_angle > max_angle:
+        msg.steering_angle = max_angle
+    elif msg.steering_angle < -max_angle:
+        msg.steering_angle = -max_angle
 
     steering_cmd_msg.position = msg.steering_angle
 
@@ -27,12 +30,13 @@ def cmd_cb( msg ):
         msg.throttle_cmd = 0.0
 
     # Handle throttle mode
-    if msg.throttle_mode == 0:
-        motor_cmd_msg.position = 0.0
-    elif msg.throttle_mode == 3:
-        motor_cmd_msg.position = -1*msg.throttle_cmd
-    else:
-        motor_cmd_msg.position = msg.throttle_cmd
+    # if msg.throttle_mode == 0:
+    #     motor_cmd_msg.position = 0.0
+    # elif msg.throttle_mode == 3:
+    #     motor_cmd_msg.position = -1*msg.throttle_cmd
+    # else:
+    #     motor_cmd_msg.position = msg.throttle_cmd
+    motor_cmd_msg.position = msg.throttle_cmd
 
 
 def msg_publisher():
