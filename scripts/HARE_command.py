@@ -37,7 +37,7 @@ def cmd_cb( msg ):
     #     motor_cmd_msg.position = -1*msg.throttle_cmd
     # else:
     #     motor_cmd_msg.position = msg.throttle_cmd
-    motor_cmd_msg.position = -1 * msg.throttle_cmd
+    motor_cmd_msg.position = msg.throttle_cmd * -1
 
 
 def msg_publisher():
